@@ -1,0 +1,33 @@
+name: Postman CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  postman-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Newman
+        run: npm install -g newman newman-reporter-html
+
+      - name: Run Postman collection
+        run: |
+          newman run Exo1_Part_1.postman_collection.json \
+          -r html \
+          --reporter-html-export report.html
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        with:
+          name: postman-report
+          path: report.html
