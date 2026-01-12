@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "0d06dfb1-3140-4c8e-9b2a-683cf2c4f48f",
+		"name": "Exo1_Part_1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "51248645",
+		"_collection_link": "https://litissialiti06-5304989.postman.co/workspace/0b66c08f-81ec-4435-b813-b77739aebd11/collection/51248645-0d06dfb1-3140-4c8e-9b2a-683cf2c4f48f?action=share&source=collection_link&creator=51248645"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"lastname\", pm.variables.get(\"randomLastName\"));\r",
+							"pm.collectionVariables.set(\"firstname\", pm.variables.get(\"randomFirstName\"));\r",
+							"pm.collectionVariables.set(\"streetName\", pm.variables.get(\"randomStreetName\"));\r",
+							"pm.collectionVariables.set(\"city\", pm.variables.get(\"randomCity\"));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"POST - Status code is 201\", function () {\r",
+							"  pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"POST - Save id\", function () {\r",
+							"  const jsonData = pm.response.json();\r",
+							"  pm.collectionVariables.set(\"id\", jsonData.id);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"lastname\": \"{{$randomLastName}}\",\r\n  \"firstname\": \"{{$randomFirstName}}\",\r\n  \"address\": {\r\n    \"numStreet\": 15,\r\n    \"streetName\": \"{{$randomStreetName}}\",\r\n    \"postalCode\": \"75001\",\r\n    \"city\": \"{{$randomCity}}\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users",
+					"protocol": "https",
+					"host": [
+						"695bcf701d8041d5eeb88ad5",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"testapi",
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"GET - Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{id}}",
+					"protocol": "https",
+					"host": [
+						"695bcf701d8041d5eeb88ad5",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"testapi",
+						"api",
+						"v1",
+						"users",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "lastname",
+			"value": ""
+		},
+		{
+			"key": "firstname",
+			"value": ""
+		},
+		{
+			"key": "streetName",
+			"value": ""
+		},
+		{
+			"key": "city",
+			"value": ""
+		},
+		{
+			"key": "id",
+			"value": ""
+		}
+	]
+}
